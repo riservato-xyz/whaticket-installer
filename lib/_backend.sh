@@ -146,7 +146,7 @@ backend_update() {
   git pull
   cd ./backend
   npm install
-  rm -rf dist
+  rm -rf dist 
   npm run build
   npx sequelize db:migrate
   npx sequelize db:seed
