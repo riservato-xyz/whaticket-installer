@@ -12,30 +12,8 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 PROJECT_ROOT="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
-if [[ ! -e "${PROJECT_ROOT}"/config ]]; then
-  cat << EOF > "${PROJECT_ROOT}"/config
-STREAMERS=()
-EOF
-fi
-
 source "${PROJECT_ROOT}"/variables/manifest.sh
 source "${PROJECT_ROOT}"/utils/manifest.sh
 source "${PROJECT_ROOT}"/lib/manifest.sh
 
-get_url # sets ${URL} or "{BATCH_DIR}"
-get_args # sets "{ARGS}"
-get_type # sets "{TYPE}"
-
-case "${TYPE}" in
-  #case 1
-  1) exec_stream ;;
-
-  #case 2
-  2) exec_download ;;
-
-  #case 3
-  3) exec_download ;;
-
-  #default
-  *) exit ;;
-esac
+backend_set_env

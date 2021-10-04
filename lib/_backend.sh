@@ -30,21 +30,30 @@ EOF
 #######################################
 backend_set_env() {
 
-  sudo su - deploy <<EOF
-  NODE_ENV=
-  BACKEND_URL=https://api.mydomain.com      #USE HTTPS HERE, WE WILL ADD SSL LATTER
-  FRONTEND_URL=https://myapp.mydomain.com   #USE HTTPS HERE, WE WILL ADD SSL LATTER, CORS RELATED!
-  PROXY_PORT=443                            #USE NGINX REVERSE PROXY PORT HERE, WE WILL CONFIGURE IT LATTER
-  PORT=8080
+  backend_url=https://api.mydomain.com
+  frontend_url=https://myapp.mydomain.com
 
-  DB_HOST=localhost
-  DB_DIALECT=
-  DB_USER=
-  DB_PASS=
-  DB_NAME=
+  db_user=whaticket
+  db_pass=whaticket
+  db_name=whaticket
 
-  JWT_SECRET=3123123213123
-  JWT_REFRESH_SECRET=75756756756
+sudo su - deploy << EOF
+  cat <<[-]EOF > /home/deploy/whaticket/backend/.env
+NODE_ENV=
+BACKEND_URL=${backend_url}
+FRONTEND_URL=${frontend_url}
+PROXY_PORT=443
+PORT=8080
+
+DB_HOST=localhost
+DB_DIALECT=
+DB_USER=${db_user}
+DB_PASS=${db_pass}
+DB_NAME=${db_name}
+
+JWT_SECRET=3123123213123
+JWT_REFRESH_SECRET=75756756756
+[-]EOF
 EOF
 }
 
