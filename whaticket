@@ -16,4 +16,5 @@ source "${PROJECT_ROOT}"/variables/manifest.sh
 source "${PROJECT_ROOT}"/utils/manifest.sh
 source "${PROJECT_ROOT}"/lib/manifest.sh
 
-system_snapd_install
+system_certbot_install
+backend_certbot_setup

@@ -115,11 +115,12 @@ EOF
 #######################################
 system_certbot_install() {
 
-  sudo su - deploy <<EOF
-  sudo apt-get remove certbot
-  sudo snap install --classic certbot
-  sudo ln -s /snap/bin/certbot /usr/bin/certbot
-  sudo certbot --nginx
+  deploy_email=deploy@whaticket.com
+
+  sudo su - root <<EOF
+  apt-get remove certbot
+  snap install --classic certbot
+  ln -s /snap/bin/certbot /usr/bin/certbot
 EOF
 }
 
@@ -130,7 +131,7 @@ EOF
 #######################################
 system_nginx_install() {
 
-  sudo su - deploy <<EOF
+  sudo su - root <<EOF
   sudo apt install nginx
   sudo rm /etc/nginx/sites-enabled/default
 EOF

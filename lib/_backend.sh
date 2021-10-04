@@ -241,3 +241,31 @@ END
 sudo ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
 EOF
 }
+
+#######################################
+# installs nginx
+# Arguments:
+#   None
+#######################################
+backend_certbot_setup() {
+
+  deploy_email=deploy@whaticket.com
+
+  backend_url=https://api.mydomain.com
+  backend_url=$(echo "${backend_url/https:\/\/}")
+
+  frontend_url=https://myapp.mydomain.com
+  frontend_url=$(echo "${frontend_url/https:\/\/}")
+
+  echo $deploy_email
+  echo $backend_url
+  echo $frontend_url
+
+  sudo su - root <<EOF
+  certbot -m $deploy_email \
+          --nginx \
+          --agree-tos \
+          --non-interactive \
+          --domains $backend_url,$frontend_url
+EOF
+}
