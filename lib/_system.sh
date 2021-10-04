@@ -86,11 +86,10 @@ EOF
 #######################################
 system_pm2_install() {
 
-  sudo su - deploy <<EOF
-  sudo npm install -g pm2
-  pm2 startup ubuntu -u $(whoami)
-  sudo env PATH=\$PATH:/usr/bin \
-       pm2 startup ubuntu -u $(whoami) --hp /home/$(whoami)
+  sudo su - root <<EOF
+  npm install -g pm2
+  pm2 startup ubuntu -u deploy
+  env PATH=\$PATH:/usr/bin pm2 startup ubuntu -u deploy --hp /home/deploy
 EOF
 }
 
