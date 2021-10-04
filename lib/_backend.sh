@@ -141,7 +141,7 @@ EOF
 backend_node_build() {
 
   sudo su - deploy <<EOF
-  cd whaticket/backend
+  cd /home/deploy/whaticket/backend
   npm install
   npm run build
 EOF
@@ -174,7 +174,7 @@ EOF
 backend_db_migrate() {
 
   sudo su - deploy <<EOF
-  cd whaticket/backend
+  cd /home/deploy/whaticket/backend
   npx sequelize db:migrate
 EOF
 }
@@ -187,7 +187,7 @@ EOF
 backend_db_seed() {
 
   sudo su - deploy <<EOF
-  cd whaticket/backend
+  cd /home/deploy/whaticket/backend
   npx sequelize db:seed:all
 EOF
 }
@@ -201,7 +201,7 @@ EOF
 backend_start_pm2() {
 
   sudo su - deploy <<EOF
-  cd whaticket/backend
+  cd /home/deploy/whaticket/backend
   sudo npm install -g pm2
   pm2 start dist/server.js --name whaticket-backend
 EOF
