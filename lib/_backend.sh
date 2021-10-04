@@ -9,12 +9,15 @@
 #######################################
 backend_mysql_create() {
 
+  mysql_root_password=strongpassword
+  mysql_password=whaticket
+
   sudo su - deploy <<EOF
   docker run --name whaticketdb \
-             -e MYSQL_ROOT_PASSWORD=strongpassword \
+             -e MYSQL_ROOT_PASSWORD=${mysql_root_password} \
              -e MYSQL_DATABASE=whaticket \
              -e MYSQL_USER=whaticket \
-             -e MYSQL_PASSWORD=whaticket \
+             -e MYSQL_PASSWORD=${mysql_password} \
              -p 3306:3306 \
              -d mariadb:latest \
              --restart always \
