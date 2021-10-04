@@ -9,8 +9,11 @@
 #######################################
 system_create_user() {
 
-  sudo su <<EOF
-  adduser deploy
+  deploy_password=123
+  deploy_password=$(openssl passwd -crypt $deploy_password)
+
+  sudo su - root <<EOF
+  useradd -m -p $deploy_password -s /bin/bash -G sudo deploy
   usermod -aG sudo deploy
 EOF
 }
