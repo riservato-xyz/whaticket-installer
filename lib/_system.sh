@@ -132,8 +132,8 @@ EOF
 system_nginx_install() {
 
   sudo su - root <<EOF
-  sudo apt install nginx
-  sudo rm /etc/nginx/sites-enabled/default
+  apt install nginx
+  rm /etc/nginx/sites-enabled/default
 EOF
 }
 
