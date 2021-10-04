@@ -54,8 +54,12 @@ EOF
 #######################################
 frontend_set_env() {
 
-  sudo su - business <<EOF
-  REACT_APP_BACKEND_URL = https://api.mydomain.com/
+  react_app_backend_url=whaticket
+
+sudo su - deploy << EOF
+  cat <<[-]EOF > /home/deploy/whaticket/frontend/.env
+REACT_APP_BACKEND_URL=${backend_url}
+[-]EOF
 EOF
 }
 
