@@ -155,13 +155,14 @@ EOF
 backend_update() {
 
   sudo su - deploy <<EOF
+  cd /home/deploy/whaticket
   git pull
-  cd ./backend
+  cd /home/deploy/whaticket/backend
   npm install
   rm -rf dist 
   npm run build
-  npx sequelize db:migrate
-  npx sequelize db:seed
+  #npx sequelize db:migrate
+  #npx sequelize db:seed
   pm2 restart all
 EOF
 }
