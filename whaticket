@@ -17,4 +17,38 @@ source "${PROJECT_ROOT}"/variables/manifest.sh
 source "${PROJECT_ROOT}"/utils/manifest.sh
 source "${PROJECT_ROOT}"/lib/manifest.sh
 
+# dependencies related
+system_update
+system_node_install
+system_pm2_install
+system_docker_install
+system_puppeteer_dependencies
+system_snapd_install
+system_nginx_install
+system_certbot_install
+
+# system config
+system_create_user
+
+# backend related
+system_git_clone
+backend_set_env
+backend_mysql_create
+backend_node_dependencies
+backend_node_build
+backend_db_migrate
+backend_db_seed
+backend_start_pm2
+backend_nginx_setup
+
+# frontend related
+frontend_set_env
+frontend_node_dependencies
+frontend_node_build
+frontend_start_pm2
+frontend_nginx_setup
+
+# network related
 system_nginx_conf
+system_nginx_restart
+backend_certbot_setup
