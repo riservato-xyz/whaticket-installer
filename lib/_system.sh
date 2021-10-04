@@ -100,11 +100,11 @@ EOF
 #######################################
 system_snapd_install() {
 
-  sudo su - deploy <<EOF
-  sudo apt update
-  sudo apt install snapd
-  sudo snap install core
-  sudo snap refresh core
+  sudo su - root <<EOF
+  apt update
+  apt install snapd
+  snap install core
+  snap refresh core
 EOF
 }
 
