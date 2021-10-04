@@ -68,7 +68,7 @@ EOF
 backend_node_dependencies() {
 
   sudo su - deploy <<EOF
-  cd whaticket/backend
+  cd /home/deploy/whaticket/backend
   npm install
 EOF
 }
@@ -86,7 +86,7 @@ EOF
 #######################################
 backend_puppeteer_dependencies() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo apt-get install -y libxshmfence-dev \
                           libgbm-dev \
                           wget \
@@ -154,7 +154,7 @@ EOF
 #######################################
 backend_update() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   git pull
   cd ./backend
   npm install
