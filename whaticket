@@ -17,3 +17,4 @@ source "${PROJECT_ROOT}"/utils/manifest.sh
 source "${PROJECT_ROOT}"/lib/manifest.sh
 
 system_create_user
+system_git_clone
