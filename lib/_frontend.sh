@@ -9,8 +9,8 @@
 #######################################
 frontend_node_dependencies() {
 
-  sudo su - business <<EOF
-  cd whaticket/frontend
+  sudo su - deploy <<EOF
+  cd /home/deploy/whaticket/frontend
   npm install
 EOF
 }
@@ -22,8 +22,8 @@ EOF
 #######################################
 frontend_node_build() {
 
-  sudo su - business <<EOF
-  cd whaticket/frontend
+  sudo su - deploy <<EOF
+  cd /home/deploy/whaticket/frontend
   npm install
   npm run build
 EOF
@@ -36,7 +36,7 @@ EOF
 #######################################
 frontend_update() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   git pull
   cd ./frontend
   npm install
@@ -57,7 +57,7 @@ frontend_set_env() {
   react_app_backend_url=whaticket
 
 sudo su - deploy << EOF
-  cat <<[-]EOF > /home/deploy/whaticket/frontend/.env
+  cat <<[-]EOF > /home/deploy//home/deploy/whaticket/frontend/.env
 REACT_APP_BACKEND_URL=${backend_url}
 [-]EOF
 EOF
@@ -70,8 +70,8 @@ EOF
 #######################################
 frontend_start_pm2() {
 
-  sudo su - business <<EOF
-  cd whaticket/frontend
+  sudo su - deploy <<EOF
+  cd /home/deploy/whaticket/frontend
   pm2 start server.js --name whaticket-frontend
   pm2 save
 EOF
@@ -84,7 +84,7 @@ EOF
 #######################################
 frontend_nginx_setup() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo touch /etc/nginx/sites-available/whaticket-frontend
 
   server {
