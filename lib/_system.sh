@@ -144,8 +144,8 @@ EOF
 #######################################
 system_nginx_restart() {
 
-  sudo su - deploy <<EOF
-  sudo nginx -t
-  sudo service nginx restart
+  sudo su - root <<EOF
+  nginx -t
+  service nginx restart
 EOF
 }
