@@ -209,31 +209,35 @@ EOF
 }
 
 #######################################
-# sets backend proxy configuration
+# updates frontend code
 # Arguments:
 #   None
 #######################################
 backend_nginx_setup() {
 
-  sudo su - deploy <<EOF
-  sudo touch /etc/nginx/sites-available/whaticket-backend
+  backend_url=https://api.mydomain.com
+  backend_url=$(echo "${backend_url/https:\/\/}")
 
-  server {
-    server_name api.mydomain.com;
+sudo su - root << EOF
 
-    location / {
-      proxy_pass http://127.0.0.1:8080;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection 'upgrade';
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_cache_bypass $http_upgrade;
-    }
+cat > /etc/nginx/sites-available/whaticket-backend << 'END'
+server {
+  server_name $backend_url;
+
+  location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade \$http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_cache_bypass \$http_upgrade;
   }
+}
+END
 
-  sudo ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
 EOF
 }
