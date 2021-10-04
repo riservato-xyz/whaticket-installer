@@ -37,8 +37,8 @@ EOF
 #######################################
 system_update() {
 
-  sudo su - deploy <<EOF
-  sudo apt -y update && sudo apt -y upgrade
+  sudo su - root <<EOF
+  apt -y update && apt -y upgrade
 EOF
 }
 
@@ -49,9 +49,9 @@ EOF
 #######################################
 system_node_install() {
 
-  sudo su - deploy <<EOF
+  sudo su - root <<EOF
   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-  sudo apt-get install -y nodejs
+  apt-get install -y nodejs
 EOF
 }
 
@@ -62,15 +62,20 @@ EOF
 #######################################
 system_docker_install() {
 
-  sudo su - deploy <<EOF
-  sudo apt install apt-transport-https ca-certificates curl software-properties-common
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-  sudo apt update
-  sudo apt install docker-ce
-  sudo systemctl status docker
-  sudo usermod -aG docker $(whoami)
-  su - $(whoami)
+  sudo su - root <<EOF
+  apt install -y apt-transport-https \
+                 ca-certificates curl \
+                 software-properties-common
+
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  
+  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+  apt update
+  apt install docker-ce
+
+  systemctl status docker
+  usermod -aG docker deploy
 EOF
 }
 
