@@ -1,1 +1,1 @@
-command line interface for youtube-dl
+Interactive CLI tool for installing and updating whaticket
