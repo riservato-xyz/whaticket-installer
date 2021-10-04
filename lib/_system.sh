@@ -38,7 +38,7 @@ EOF
 system_update() {
 
   sudo su - deploy <<EOF
-  sudo apt update && sudo apt upgrade
+  sudo apt -y update && sudo apt -y upgrade
 EOF
 }
 
