@@ -161,8 +161,8 @@ backend_update() {
   npm install
   rm -rf dist 
   npm run build
-  #npx sequelize db:migrate
-  #npx sequelize db:seed
+  npx sequelize db:migrate
+  npx sequelize db:seed
   pm2 restart all
 EOF
 }
