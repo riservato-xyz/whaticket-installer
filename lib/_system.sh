@@ -22,9 +22,8 @@ EOF
 #######################################
 system_git_clone() {
 
-  sudo su - business <<EOF
-  cd ~
-  git clone https://github.com/canove/whaticket whaticket
+  sudo su - deploy <<EOF
+  git clone https://github.com/canove/whaticket /home/deploy/whaticket/
 EOF
 }
 
@@ -35,7 +34,7 @@ EOF
 #######################################
 system_update() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo apt update && sudo apt upgrade
 EOF
 }
@@ -47,11 +46,9 @@ EOF
 #######################################
 system_node_install() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
   sudo apt-get install -y nodejs
-  node -v
-  npm -v
 EOF
 }
 
@@ -62,7 +59,7 @@ EOF
 #######################################
 system_docker_install() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo apt install apt-transport-https ca-certificates curl software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
@@ -81,7 +78,7 @@ EOF
 #######################################
 system_pm2_install() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo npm install -g pm2
   pm2 startup ubuntu -u $(whoami)
   sudo env PATH=\$PATH:/usr/bin \
@@ -96,7 +93,7 @@ EOF
 #######################################
 system_snapd_install() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo apt update
   sudo apt install snapd
   sudo snap install core
@@ -111,7 +108,7 @@ EOF
 #######################################
 system_certbot_install() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo apt-get remove certbot
   sudo snap install --classic certbot
   sudo ln -s /snap/bin/certbot /usr/bin/certbot
@@ -126,7 +123,7 @@ EOF
 #######################################
 system_nginx_install() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo apt install nginx
   sudo rm /etc/nginx/sites-enabled/default
 EOF
@@ -139,7 +136,7 @@ EOF
 #######################################
 system_nginx_restart() {
 
-  sudo su - business <<EOF
+  sudo su - deploy <<EOF
   sudo nginx -t
   sudo service nginx restart
 EOF

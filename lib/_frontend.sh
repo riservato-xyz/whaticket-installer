@@ -37,8 +37,9 @@ EOF
 frontend_update() {
 
   sudo su - deploy <<EOF
+  cd /home/deploy/whaticket
   git pull
-  cd ./frontend
+  cd /home/deploy/whaticket/frontend
   npm install
   rm -rf build
   npm run build
