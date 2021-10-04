@@ -9,9 +9,6 @@
 #######################################
 backend_mysql_create() {
 
-  mysql_root_password=strongpassword
-  mysql_password=whaticket
-
   sudo su - deploy <<EOF
   docker run --name whaticketdb \
              -e MYSQL_ROOT_PASSWORD=${mysql_root_password} \
@@ -36,10 +33,6 @@ backend_set_env() {
   backend_url=https://api.mydomain.com
   frontend_url=https://myapp.mydomain.com
 
-  db_user=whaticket
-  db_pass=whaticket
-  db_name=whaticket
-
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/whaticket/backend/.env
 NODE_ENV=
@@ -54,8 +47,8 @@ DB_USER=${db_user}
 DB_PASS=${db_pass}
 DB_NAME=${db_name}
 
-JWT_SECRET=3123123213123
-JWT_REFRESH_SECRET=75756756756
+JWT_SECRET=${jwt_secret}
+JWT_REFRESH_SECRET=${jwt_refresh_secret}
 [-]EOF
 EOF
 }
