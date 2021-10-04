@@ -189,9 +189,10 @@ http {
 
     #gzip  on;
 
+    client_max_body_size 20M;
+
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
-    client_max_body_size 20M;
 }
 END
 
