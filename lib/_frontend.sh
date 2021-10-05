@@ -8,6 +8,9 @@
 #   None
 #######################################
 frontend_node_dependencies() {
+  print_banner
+  printf "${WHITE} 💻 Instalando dependências do frontend...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/frontend
@@ -21,6 +24,9 @@ EOF
 #   None
 #######################################
 frontend_node_build() {
+  print_banner
+  printf "${WHITE} 💻 Compilando o código do frontend...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/frontend
@@ -35,6 +41,9 @@ EOF
 #   None
 #######################################
 frontend_update() {
+  print_banner
+  printf "${WHITE} 💻 Atualizando o frontend...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket
@@ -54,6 +63,9 @@ EOF
 #   None
 #######################################
 frontend_set_env() {
+  print_banner
+  printf "${WHITE} 💻 Configurando variáveis de ambiente (frontend)...${GRAY_LIGHT}"
+  printf "\n\n"
 
   backend_url=https://api.mydomain.com
 
@@ -70,6 +82,9 @@ EOF
 #   None
 #######################################
 frontend_start_pm2() {
+  print_banner
+  printf "${WHITE} 💻 Iniciando pm2 (frontend)...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/frontend
@@ -84,6 +99,9 @@ EOF
 #   None
 #######################################
 frontend_nginx_setup() {
+  print_banner
+  printf "${WHITE} 💻 Configurando nginx (frontend)...${GRAY_LIGHT}"
+  printf "\n\n"
 
   frontend_url=https://myapp.mydomain.com
   frontend_url=$(echo "${frontend_url/https:\/\/}")

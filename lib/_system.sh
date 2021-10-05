@@ -27,6 +27,9 @@ EOF
 #   None
 #######################################
 system_git_clone() {
+  print_banner
+  printf "${WHITE} 💻 Fazendo download do código whaticket...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   git clone https://github.com/canove/whaticket /home/deploy/whaticket/
@@ -246,7 +249,7 @@ system_nginx_conf() {
 sudo su - root << EOF
 
 cat > /etc/nginx/nginx.conf << 'END'
-user  nginx;
+user  deploy;
 worker_processes  auto;
 
 error_log  /var/log/nginx/error.log notice;
@@ -282,5 +285,32 @@ http {
 }
 END
 
+EOF
+}
+
+#######################################
+# installs nginx
+# Arguments:
+#   None
+#######################################
+system_certbot_setup() {
+  print_banner
+  printf "${WHITE} 💻 Configurando certbot...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  deploy_email=deploy@whaticket.com
+
+  backend_url=https://api.mydomain.com
+  backend_url=$(echo "${backend_url/https:\/\/}")
+
+  frontend_url=https://myapp.mydomain.com
+  frontend_url=$(echo "${frontend_url/https:\/\/}")
+
+  sudo su - root <<EOF
+  certbot -m $deploy_email \
+          --nginx \
+          --agree-tos \
+          --non-interactive \
+          --domains $backend_url,$frontend_url
 EOF
 }

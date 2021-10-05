@@ -51,4 +51,4 @@ frontend_nginx_setup
 # network related
 system_nginx_conf
 system_nginx_restart
-backend_certbot_setup
+system_certbot_setup

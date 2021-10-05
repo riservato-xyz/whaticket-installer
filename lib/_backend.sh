@@ -8,6 +8,9 @@
 #   None
 #######################################
 backend_mysql_create() {
+  print_banner
+  printf "${WHITE} 💻 Criando banco de dados...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   docker run --name whaticketdb \
@@ -29,6 +32,9 @@ EOF
 #   None
 #######################################
 backend_set_env() {
+  print_banner
+  printf "${WHITE} 💻 Configurando variáveis de ambiente (backend)...${GRAY_LIGHT}"
+  printf "\n\n"
 
   backend_url=https://api.mydomain.com
   frontend_url=https://myapp.mydomain.com
@@ -60,6 +66,9 @@ EOF
 #   None
 #######################################
 backend_node_dependencies() {
+  print_banner
+  printf "${WHITE} 💻 Instalando dependências do backend...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
@@ -73,6 +82,9 @@ EOF
 #   None
 #######################################
 backend_node_build() {
+  print_banner
+  printf "${WHITE} 💻 Compilando o código do backend...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
@@ -107,6 +119,9 @@ EOF
 #   None
 #######################################
 backend_db_migrate() {
+  print_banner
+  printf "${WHITE} 💻 Executando db:migrate...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
@@ -120,6 +135,9 @@ EOF
 #   None
 #######################################
 backend_db_seed() {
+  print_banner
+  printf "${WHITE} 💻 Executando db:seed...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
@@ -134,10 +152,12 @@ EOF
 #   None
 #######################################
 backend_start_pm2() {
+  print_banner
+  printf "${WHITE} 💻 Iniciando pm2 (backend)...${GRAY_LIGHT}"
+  printf "\n\n"
 
-  sudo su - deploy <<EOF
+  sudo su - root <<EOF
   cd /home/deploy/whaticket/backend
-  sudo npm install -g pm2
   pm2 start dist/server.js --name whaticket-backend
 EOF
 }
@@ -148,6 +168,9 @@ EOF
 #   None
 #######################################
 backend_nginx_setup() {
+  print_banner
+  printf "${WHITE} 💻 Configurando nginx (backend)...${GRAY_LIGHT}"
+  printf "\n\n"
 
   backend_url=https://api.mydomain.com
   backend_url=$(echo "${backend_url/https:\/\/}")
@@ -173,29 +196,5 @@ server {
 END
 
 sudo ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
-EOF
-}
-
-#######################################
-# installs nginx
-# Arguments:
-#   None
-#######################################
-backend_certbot_setup() {
-
-  deploy_email=deploy@whaticket.com
-
-  backend_url=https://api.mydomain.com
-  backend_url=$(echo "${backend_url/https:\/\/}")
-
-  frontend_url=https://myapp.mydomain.com
-  frontend_url=$(echo "${frontend_url/https:\/\/}")
-
-  sudo su - root <<EOF
-  certbot -m $deploy_email \
-          --nginx \
-          --agree-tos \
-          --non-interactive \
-          --domains $backend_url,$frontend_url
 EOF
 }
