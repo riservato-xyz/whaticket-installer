@@ -172,7 +172,7 @@ backend_start_pm2() {
 
   sleep 2
 
-  sudo su - root <<EOF
+  sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
   pm2 start dist/server.js --name whaticket-backend
 EOF
