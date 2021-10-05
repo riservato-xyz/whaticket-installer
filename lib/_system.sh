@@ -14,11 +14,8 @@ system_create_user() {
 
   sleep 2
 
-  deploy_password=123
-  deploy_password=$(openssl passwd -crypt $deploy_password)
-
   sudo su - root <<EOF
-  useradd -m -p $deploy_password -s /bin/bash -G sudo deploy
+  useradd -m -p $(openssl passwd -crypt $deploy_password) -s /bin/bash -G sudo deploy
   usermod -aG sudo deploy
 EOF
 }
