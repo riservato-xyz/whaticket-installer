@@ -75,8 +75,6 @@ frontend_set_env() {
 
   sleep 2
 
-  backend_url=https://api.mydomain.com
-
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/whaticket/frontend/.env
 REACT_APP_BACKEND_URL=${backend_url}
@@ -115,7 +113,6 @@ frontend_nginx_setup() {
 
   sleep 2
 
-  frontend_url=https://myapp.mydomain.com
   frontend_url=$(echo "${frontend_url/https:\/\/}")
 
 sudo su - root << EOF
