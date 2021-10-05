@@ -12,6 +12,8 @@ frontend_node_dependencies() {
   printf "${WHITE} 💻 Instalando dependências do frontend...${GRAY_LIGHT}"
   printf "\n\n"
 
+  sleep 2
+
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/frontend
   npm install
@@ -27,6 +29,8 @@ frontend_node_build() {
   print_banner
   printf "${WHITE} 💻 Compilando o código do frontend...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/frontend
@@ -44,6 +48,8 @@ frontend_update() {
   print_banner
   printf "${WHITE} 💻 Atualizando o frontend...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket
@@ -67,6 +73,8 @@ frontend_set_env() {
   printf "${WHITE} 💻 Configurando variáveis de ambiente (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
+  sleep 2
+
   backend_url=https://api.mydomain.com
 
 sudo su - deploy << EOF
@@ -86,6 +94,8 @@ frontend_start_pm2() {
   printf "${WHITE} 💻 Iniciando pm2 (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
+  sleep 2
+
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/frontend
   pm2 start server.js --name whaticket-frontend
@@ -102,6 +112,8 @@ frontend_nginx_setup() {
   print_banner
   printf "${WHITE} 💻 Configurando nginx (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   frontend_url=https://myapp.mydomain.com
   frontend_url=$(echo "${frontend_url/https:\/\/}")

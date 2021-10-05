@@ -12,6 +12,7 @@ backend_mysql_create() {
   printf "${WHITE} 💻 Criando banco de dados...${GRAY_LIGHT}"
   printf "\n\n"
 
+  sleep 2
 
   sudo su - deploy <<EOF
   sudo usermod -aG docker deploy
@@ -37,6 +38,8 @@ backend_set_env() {
   print_banner
   printf "${WHITE} 💻 Configurando variáveis de ambiente (backend)...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   backend_url=https://api.mydomain.com
   frontend_url=https://myapp.mydomain.com
@@ -71,6 +74,8 @@ backend_node_dependencies() {
   printf "${WHITE} 💻 Instalando dependências do backend...${GRAY_LIGHT}"
   printf "\n\n"
 
+  sleep 2
+
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
   npm install
@@ -86,6 +91,8 @@ backend_node_build() {
   print_banner
   printf "${WHITE} 💻 Compilando o código do backend...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
@@ -103,6 +110,8 @@ backend_update() {
   print_banner
   printf "${WHITE} 💻 Atualizando o backend...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket
@@ -127,6 +136,8 @@ backend_db_migrate() {
   printf "${WHITE} 💻 Executando db:migrate...${GRAY_LIGHT}"
   printf "\n\n"
 
+  sleep 2
+
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
   npx sequelize db:migrate
@@ -142,6 +153,8 @@ backend_db_seed() {
   print_banner
   printf "${WHITE} 💻 Executando db:seed...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/backend
@@ -160,6 +173,8 @@ backend_start_pm2() {
   printf "${WHITE} 💻 Iniciando pm2 (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
+  sleep 2
+
   sudo su - root <<EOF
   cd /home/deploy/whaticket/backend
   pm2 start dist/server.js --name whaticket-backend
@@ -175,6 +190,8 @@ backend_nginx_setup() {
   print_banner
   printf "${WHITE} 💻 Configurando nginx (backend)...${GRAY_LIGHT}"
   printf "\n\n"
+
+  sleep 2
 
   backend_url=https://api.mydomain.com
   backend_url=$(echo "${backend_url/https:\/\/}")
