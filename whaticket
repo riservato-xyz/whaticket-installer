@@ -17,6 +17,21 @@ source "${PROJECT_ROOT}"/variables/manifest.sh
 source "${PROJECT_ROOT}"/utils/manifest.sh
 source "${PROJECT_ROOT}"/lib/manifest.sh
 
+# user configs file
+if [[ ! -e "${PROJECT_ROOT}"/config ]]; then
+  cat << EOF > "${PROJECT_ROOT}"/config
+DEPLOY_PASSWORD=${deploy_password}
+MYSQL_ROOT_PASSWORD=${mysql_root_password}
+EOF
+fi
+
+# this file has passwords
+sudo su - root <<EOF
+chown root:root "${PROJECT_ROOT}"/config
+chmod 700 "${PROJECT_ROOT}"/config
+EOF
+source "${PROJECT_ROOT}"/config
+
 # dependencies related
 system_update
 system_node_install

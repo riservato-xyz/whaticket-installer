@@ -298,8 +298,6 @@ system_certbot_setup() {
   printf "${WHITE} 💻 Configurando certbot...${GRAY_LIGHT}"
   printf "\n\n"
 
-  deploy_email=deploy@whaticket.com
-
   backend_url=https://api.mydomain.com
   backend_url=$(echo "${backend_url/https:\/\/}")
 

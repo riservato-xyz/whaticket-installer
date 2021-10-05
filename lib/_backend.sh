@@ -49,7 +49,6 @@ PORT=8080
 
 DB_HOST=localhost
 DB_DIALECT=
-DB_ROOT_PASS=${mysql_root_password}
 DB_USER=${db_user}
 DB_PASS=${db_pass}
 DB_NAME=${db_name}
