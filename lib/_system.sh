@@ -87,8 +87,6 @@ system_docker_install() {
   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
   apt install -y docker-ce
-
-  usermod -aG docker deploy
 EOF
 }
 

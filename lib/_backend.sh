@@ -12,7 +12,9 @@ backend_mysql_create() {
   printf "${WHITE} 💻 Criando banco de dados...${GRAY_LIGHT}"
   printf "\n\n"
 
+
   sudo su - deploy <<EOF
+  sudo usermod -aG docker deploy
   docker run --name whaticketdb \
              -e MYSQL_ROOT_PASSWORD=${mysql_root_password} \
              -e MYSQL_DATABASE=${db_name} \
