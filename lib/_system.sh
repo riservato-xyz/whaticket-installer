@@ -8,6 +8,9 @@
 #   None
 #######################################
 system_create_user() {
+  print_banner
+  printf "${WHITE} 💻 Agora, vamos criar o usuário para deploy...${GRAY_LIGHT}"
+  printf "\n\n"
 
   deploy_password=123
   deploy_password=$(openssl passwd -crypt $deploy_password)
@@ -36,6 +39,9 @@ EOF
 #   None
 #######################################
 system_update() {
+  print_banner
+  printf "${WHITE} 💻 Vamos começar atualizando o sistema...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
   apt -y update && apt -y upgrade
@@ -48,6 +54,9 @@ EOF
 #   None
 #######################################
 system_node_install() {
+  print_banner
+  printf "${WHITE} 💻 Instalando nodejs...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
@@ -61,6 +70,9 @@ EOF
 #   None
 #######################################
 system_docker_install() {
+  print_banner
+  printf "${WHITE} 💻 Instalando docker...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
   apt install -y apt-transport-https \
@@ -71,10 +83,8 @@ system_docker_install() {
   
   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
-  apt update
   apt install docker-ce
 
-  systemctl status docker
   usermod -aG docker deploy
 EOF
 }
@@ -91,17 +101,52 @@ EOF
 #   None
 #######################################
 system_puppeteer_dependencies() {
+  print_banner
+  printf "${WHITE} 💻 Instalando puppeteer dependencies...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
-  apt-get install -y libxshmfence-dev libgbm-dev wget unzip fontconfig \
-                      locales gconf-service libasound2 .0-0 libc6 libcairo2 \
-                      libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 \
-                      libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 \
-                      libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 \
-                      libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 \
-                      libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
-                      libxrender1 libxss1 libxtst6 ca-certificates \
-                      fonts-liberation libappindicator1 libnss3 lsb-release \
+  apt-get install -y libxshmfence-dev \
+                      libgbm-dev \
+                      wget \
+                      unzip \
+                      fontconfig \
+                      locales \
+                      gconf-service \
+                      libasound2.0-0 \
+                      libc6 \
+                      libcairo2 \
+                      libcups2 \
+                      libdbus-1-3 \
+                      libexpat1 \
+                      libfontconfig1 \
+                      libgcc1 \
+                      libgconf-2-4 \
+                      libgdk-pixbuf2.0-0 \
+                      libglib2.0-0 \
+                      libgtk-3-0 \
+                      libnspr4 \
+                      libpango-1.0-0 \
+                      libpangocairo-1.0-0 \
+                      libstdc++6 \
+                      libx11-6 \
+                      libx11-xcb1 \
+                      libxcb1 \
+                      libxcomposite1 \
+                      libxcursor1 \
+                      libxdamage1 \
+                      libxext6 \
+                      libxfixes3 \
+                      libxi6 \
+                      libxrandr2 \
+                      libxrender1 \
+                      libxss1 \
+                      libxtst6 \
+                      ca-certificates \
+                      fonts-liberation \
+                      libappindicator1 \
+                      libnss3 \
+                      lsb-release \
                       xdg-utils
 EOF
 }
@@ -112,6 +157,9 @@ EOF
 #   None
 #######################################
 system_pm2_install() {
+  print_banner
+  printf "${WHITE} 💻 Instalando pm2...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
   npm install -g pm2
@@ -121,14 +169,16 @@ EOF
 }
 
 #######################################
-# installs nginx
+# installs snapd
 # Arguments:
 #   None
 #######################################
 system_snapd_install() {
+  print_banner
+  printf "${WHITE} 💻 Instalando snapd...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
-  apt update
   apt install snapd
   snap install core
   snap refresh core
@@ -136,11 +186,14 @@ EOF
 }
 
 #######################################
-# installs nginx
+# installs certbot
 # Arguments:
 #   None
 #######################################
 system_certbot_install() {
+  print_banner
+  printf "${WHITE} 💻 Instalando certbot...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
   apt-get remove certbot
@@ -155,6 +208,9 @@ EOF
 #   None
 #######################################
 system_nginx_install() {
+  print_banner
+  printf "${WHITE} 💻 Instalando nginx...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
   apt install nginx
@@ -168,9 +224,11 @@ EOF
 #   None
 #######################################
 system_nginx_restart() {
+  print_banner
+  printf "${WHITE} 💻 reiniciando nginx...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - root <<EOF
-  nginx -t
   service nginx restart
 EOF
 }
@@ -181,6 +239,9 @@ EOF
 #   None
 #######################################
 system_nginx_conf() {
+  print_banner
+  printf "${WHITE} 💻 configurando nginx...${GRAY_LIGHT}"
+  printf "\n\n"
 
 sudo su - root << EOF
 
