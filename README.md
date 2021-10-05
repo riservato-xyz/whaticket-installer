@@ -15,7 +15,7 @@ Now, all you gotta do is making it executable:
 sudo chmod +x ./whaticket-installer/whaticket
 ```
 
-### download
+### usage
 
 After downloading and make it executable, you need to **navigate into** the installer directory and **run the script with sudo**:
 
