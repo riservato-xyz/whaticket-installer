@@ -86,7 +86,7 @@ system_docker_install() {
   
   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
-  apt install docker-ce
+  apt install -y docker-ce
 
   usermod -aG docker deploy
 EOF
@@ -182,7 +182,7 @@ system_snapd_install() {
   printf "\n\n"
 
   sudo su - root <<EOF
-  apt install snapd
+  apt install -y snapd
   snap install core
   snap refresh core
 EOF
@@ -216,7 +216,7 @@ system_nginx_install() {
   printf "\n\n"
 
   sudo su - root <<EOF
-  apt install nginx
+  apt install -y nginx
   rm /etc/nginx/sites-enabled/default
 EOF
 }
