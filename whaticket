@@ -20,8 +20,9 @@ source "${PROJECT_ROOT}"/lib/manifest.sh
 # user configs file
 if [[ ! -e "${PROJECT_ROOT}"/config ]]; then
   cat << EOF > "${PROJECT_ROOT}"/config
-DEPLOY_PASSWORD=${deploy_password}
-MYSQL_ROOT_PASSWORD=${mysql_root_password}
+deploy_password=${deploy_password}
+mysql_root_password=${mysql_root_password}
+db_pass=${db_pass}
 EOF
 fi
 
@@ -31,6 +32,9 @@ chown root:root "${PROJECT_ROOT}"/config
 chmod 700 "${PROJECT_ROOT}"/config
 EOF
 source "${PROJECT_ROOT}"/config
+
+# interactive CLI
+inquiry_options
 
 # dependencies related
 system_update

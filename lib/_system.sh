@@ -43,7 +43,7 @@ EOF
 #######################################
 system_update() {
   print_banner
-  printf "${WHITE} 💻 Vamos começar atualizando o sistema...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Vamos atualizar o sistema...${GRAY_LIGHT}"
   printf "\n\n"
 
   sudo su - root <<EOF
@@ -237,7 +237,7 @@ EOF
 }
 
 #######################################
-# updates frontend code
+# setup for nginx.conf
 # Arguments:
 #   None
 #######################################
@@ -248,7 +248,7 @@ system_nginx_conf() {
 
 sudo su - root << EOF
 
-cat > /etc/nginx/nginx.conf << 'END'
+cat > /etc/nginx/conf.d/whaticket << 'END'
 user  deploy;
 worker_processes  auto;
 

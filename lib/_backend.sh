@@ -98,6 +98,9 @@ EOF
 #   None
 #######################################
 backend_update() {
+  print_banner
+  printf "${WHITE} 💻 Atualizando o backend...${GRAY_LIGHT}"
+  printf "\n\n"
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket

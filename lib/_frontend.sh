@@ -3,7 +3,7 @@
 # functions for setting up app frontend
 
 #######################################
-# updates frontend code
+# installed node packages
 # Arguments:
 #   None
 #######################################
@@ -19,7 +19,7 @@ EOF
 }
 
 #######################################
-# updates frontend code
+# compiles frontend code
 # Arguments:
 #   None
 #######################################
@@ -58,7 +58,7 @@ EOF
 
 
 #######################################
-# updates frontend code
+# sets frontend environment variables
 # Arguments:
 #   None
 #######################################
@@ -77,7 +77,7 @@ EOF
 }
 
 #######################################
-# updates frontend code
+# starts pm2 for frontend
 # Arguments:
 #   None
 #######################################
@@ -94,7 +94,7 @@ EOF
 }
 
 #######################################
-# updates frontend code
+# sets up nginx for frontend
 # Arguments:
 #   None
 #######################################
