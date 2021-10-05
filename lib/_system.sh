@@ -126,7 +126,8 @@ system_puppeteer_dependencies() {
                       fontconfig \
                       locales \
                       gconf-service \
-                      libasound2.0-0 \
+                      libasound2 \
+                      libatk1.0-0 \
                       libc6 \
                       libcairo2 \
                       libcups2 \

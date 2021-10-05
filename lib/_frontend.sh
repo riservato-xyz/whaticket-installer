@@ -138,6 +138,6 @@ server {
 }
 END
 
-sudo ln -s /etc/nginx/sites-available/whaticket-frontend /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/whaticket-frontend /etc/nginx/sites-enabled
 EOF
 }

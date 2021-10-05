@@ -216,6 +216,6 @@ server {
 }
 END
 
-sudo ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
 EOF
 }
