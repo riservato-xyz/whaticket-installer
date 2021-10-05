@@ -14,7 +14,7 @@ backend_mysql_create() {
 
   sleep 2
 
-  sudo su - deploy <<EOF
+  sudo su - root <<EOF
   usermod -aG docker deploy
   docker run --name whaticketdb \
              -e MYSQL_ROOT_PASSWORD=${mysql_root_password} \
