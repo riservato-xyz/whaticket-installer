@@ -18,6 +18,8 @@ frontend_node_dependencies() {
   cd /home/deploy/whaticket/frontend
   npm install
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -37,6 +39,8 @@ frontend_node_build() {
   npm install
   npm run build
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -60,6 +64,8 @@ frontend_update() {
   npm run build
   pm2 restart all
 EOF
+
+  sleep 2
 }
 
 
@@ -80,6 +86,8 @@ sudo su - deploy << EOF
 REACT_APP_BACKEND_URL=${backend_url}
 [-]EOF
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -99,6 +107,8 @@ frontend_start_pm2() {
   pm2 start server.js --name whaticket-frontend
   pm2 save
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -137,4 +147,6 @@ END
 
 ln -s /etc/nginx/sites-available/whaticket-frontend /etc/nginx/sites-enabled
 EOF
+
+  sleep 2
 }

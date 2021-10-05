@@ -18,6 +18,8 @@ system_create_user() {
   useradd -m -p $(openssl passwd -crypt $deploy_password) -s /bin/bash -G sudo deploy
   usermod -aG sudo deploy
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -35,6 +37,8 @@ system_git_clone() {
   sudo su - deploy <<EOF
   git clone https://github.com/canove/whaticket /home/deploy/whaticket/
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -52,6 +56,8 @@ system_update() {
   sudo su - root <<EOF
   apt -y update && apt -y upgrade
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -70,6 +76,8 @@ system_node_install() {
   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
   apt-get install -y nodejs
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -95,6 +103,8 @@ system_docker_install() {
 
   apt install -y docker-ce
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -160,6 +170,8 @@ system_puppeteer_dependencies() {
                       lsb-release \
                       xdg-utils
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -179,6 +191,8 @@ system_pm2_install() {
   pm2 startup ubuntu -u deploy
   env PATH=\$PATH:/usr/bin pm2 startup ubuntu -u deploy --hp /home/deploy
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -198,6 +212,8 @@ system_snapd_install() {
   snap install core
   snap refresh core
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -217,6 +233,8 @@ system_certbot_install() {
   snap install --classic certbot
   ln -s /snap/bin/certbot /usr/bin/certbot
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -235,6 +253,8 @@ system_nginx_install() {
   apt install -y nginx
   rm /etc/nginx/sites-enabled/default
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -252,6 +272,8 @@ system_nginx_restart() {
   sudo su - root <<EOF
   service nginx restart
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -306,6 +328,8 @@ http {
 END
 
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -330,4 +354,6 @@ system_certbot_setup() {
           --non-interactive \
           --domains $backend_url,$frontend_url
 EOF
+
+  sleep 2
 }

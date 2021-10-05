@@ -27,6 +27,8 @@ backend_mysql_create() {
              --character-set-server=utf8mb4 \
              --collation-server=utf8mb4_bin
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -59,6 +61,8 @@ JWT_SECRET=${jwt_secret}
 JWT_REFRESH_SECRET=${jwt_refresh_secret}
 [-]EOF
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -77,6 +81,8 @@ backend_node_dependencies() {
   cd /home/deploy/whaticket/backend
   npm install
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -96,6 +102,8 @@ backend_node_build() {
   npm install
   npm run build
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -121,6 +129,8 @@ backend_update() {
   npx sequelize db:seed
   pm2 restart all
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -139,6 +149,8 @@ backend_db_migrate() {
   cd /home/deploy/whaticket/backend
   npx sequelize db:migrate
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -157,6 +169,8 @@ backend_db_seed() {
   cd /home/deploy/whaticket/backend
   npx sequelize db:seed:all
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -176,6 +190,8 @@ backend_start_pm2() {
   cd /home/deploy/whaticket/backend
   pm2 start dist/server.js --name whaticket-backend
 EOF
+
+  sleep 2
 }
 
 #######################################
@@ -214,4 +230,6 @@ END
 
 ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
 EOF
+
+  sleep 2
 }
