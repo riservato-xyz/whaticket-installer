@@ -17,13 +17,13 @@ backend_mysql_create() {
   sudo su - root <<EOF
   usermod -aG docker deploy
   docker run --name whaticketdb \
-             -e MYSQL_ROOT_PASSWORD=${mysql_root_password} \
-             -e MYSQL_DATABASE=${db_name} \
-             -e MYSQL_USER=${db_user} \
-             -e MYSQL_PASSWORD=${db_pass} \
-             -p 3306:3306 \
-             -d mariadb:latest \
+                -e MYSQL_ROOT_PASSWORD=${mysql_root_password} \
+                -e MYSQL_DATABASE=${db_name} \
+                -e MYSQL_USER=${db_user} \
+                -e MYSQL_PASSWORD=${db_pass} \
              --restart always \
+                -p 3306:3306 \
+                -d mariadb:latest \
              --character-set-server=utf8mb4 \
              --collation-server=utf8mb4_bin
 EOF
