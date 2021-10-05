@@ -17,6 +17,8 @@
 #######################################
 print_banner() {
 
+  clear
+
   printf "\n\n"
 
   printf "${GREEN}";
