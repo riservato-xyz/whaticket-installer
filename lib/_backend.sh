@@ -206,13 +206,13 @@ backend_nginx_setup() {
 
   sleep 2
 
-  backend_url=$(echo "${backend_url/https:\/\/}")
+  backend_hostname=$(echo "${backend_url/https:\/\/}")
 
 sudo su - root << EOF
 
 cat > /etc/nginx/sites-available/whaticket-backend << 'END'
 server {
-  server_name $backend_url;
+  server_name $backend_hostname;
 
   location / {
     proxy_pass http://127.0.0.1:8080;

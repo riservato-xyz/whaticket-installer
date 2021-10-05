@@ -123,13 +123,13 @@ frontend_nginx_setup() {
 
   sleep 2
 
-  frontend_url=$(echo "${frontend_url/https:\/\/}")
+  frontend_hostname=$(echo "${frontend_url/https:\/\/}")
 
 sudo su - root << EOF
 
 cat > /etc/nginx/sites-available/whaticket-frontend << 'END'
 server {
-  server_name $frontend_url;
+  server_name $frontend_hostname;
 
   location / {
     proxy_pass http://127.0.0.1:3333;
