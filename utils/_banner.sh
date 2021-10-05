@@ -10,28 +10,37 @@
 #   WHITE
 #   CYAN_LIGHT
 #   RED
+#   GREEN
 #   YELLOW
 # Arguments:
 #   None
 #######################################
 print_banner() {
-  clear
 
   printf "\n\n"
 
-  printf "             ${BG_BROWN}                                                     ${NC} 
-             ${BG_BROWN}  ${NC}                                                 ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC} ${WHITE}I WILL NOT BE MEAN TO GOOD PEOPLE.${NC}              ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC} ${WHITE}I WILL NOT BE MEAN TO GOOD PEOPLE.${NC}              ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC} ${WHITE}I WILL NOT BE MEAN TO GOOD PEOPLE.${NC}              ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC} ${WHITE}I WILL NOT BE MEAN TO GOOD PEOPLE.${NC}              ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC} ${WHITE}I WILL NOT BE MEAN TO GOOD PEOPLE.${NC}              ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC} ${WHITE}I WILL NOT BE MEAN TO ${CYAN_LIGHT}G${RED}O${YELLOW}O${NC}                       ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC}                                                 ${BG_BROWN}  ${NC}
-             ${BG_BROWN}  ${NC}                                           ${WHITE}━━━━${NC}  ${BG_BROWN}  ${NC}
-             ${BG_BROWN}                                                     ${NC}
+  printf "${GREEN}";
+  printf "                                                     ▄▄█▀▀▀▀▀▀▀█▄▄  \n";
+  printf "                                                   ${GREEN}▄█▀${NC}   ${WHITE}▄▄${NC}      ${GREEN}▀█▄\n";
+  printf "                                                   ${GREEN}█${NC}    ${WHITE}███${NC}         ${GREEN}█\n";
+  printf "                                                   ${GREEN}█${NC}    ${WHITE}██▄         ${GREEN}█${NC}\n";
+  printf "                                                   ${GREEN}█${NC}     ${WHITE}▀██▄${NC} ${WHITE}██${NC}    ${GREEN}█\n";
+  printf "                                                   ${GREEN}█${NC}       ${WHITE}▀███▀${NC}    ${GREEN}█\n";
+  printf "                                                   ${GREEN}▀█▄           ▄█▀\n";
+  printf "                                                    ▄█    ▄▄▄▄█▀▀  \n";
+  printf "                                                    █  ▄█▀        \n";
+  printf "                                                    ▀▀▀▀          \n";
+  printf "${NC}";
 
-"
+  printf "\n"
+
+  printf "${GREEN}";
+  printf "██     ██ ██   ██  █████  ████████ ██  ██████ ██   ██ ███████ ████████\n";
+  printf "██     ██ ██   ██ ██   ██    ██    ██ ██      ██  ██  ██         ██   \n";
+  printf "██  █  ██ ███████ ███████    ██    ██ ██      █████   █████      ██   \n";
+  printf "██ ███ ██ ██   ██ ██   ██    ██    ██ ██      ██  ██  ██         ██   \n";
+  printf " ███ ███  ██   ██ ██   ██    ██    ██  ██████ ██   ██ ███████    ██   \n";
+  printf "${NC}";
 
   printf "\n"
 }
