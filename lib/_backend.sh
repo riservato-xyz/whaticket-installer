@@ -41,9 +41,6 @@ backend_set_env() {
 
   sleep 2
 
-  backend_url=https://api.mydomain.com
-  frontend_url=https://myapp.mydomain.com
-
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/whaticket/backend/.env
 NODE_ENV=
@@ -193,7 +190,6 @@ backend_nginx_setup() {
 
   sleep 2
 
-  backend_url=https://api.mydomain.com
   backend_url=$(echo "${backend_url/https:\/\/}")
 
 sudo su - root << EOF
