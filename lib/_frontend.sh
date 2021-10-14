@@ -81,6 +81,10 @@ frontend_set_env() {
 
   sleep 2
 
+  # ensure idempotency
+  backend_url=$(echo "${backend_url/https:\/\/}")
+  backend_url=https://$backend_url
+
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/whaticket/frontend/.env
 REACT_APP_BACKEND_URL=${backend_url}
