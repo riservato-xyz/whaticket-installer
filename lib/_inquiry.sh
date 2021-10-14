@@ -41,7 +41,10 @@ inquiry_options() {
   case "${option}" in
     1) get_urls ;;
 
-    2) software_update ;;
+    2) 
+      software_update 
+      exit
+      ;;
 
     *) exit ;;
   esac
