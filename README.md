@@ -19,7 +19,7 @@ sudo chmod +x ./whaticket-installer/whaticket
 
 ### usage
 
-After downloading and make it executable, you need to **navigate into** the installer directory and **run the script with sudo**:
+After downloading and making it executable, you need to **navigate into** the installer directory and **run the script with sudo**:
 
 ```bash
 cd ./whaticket-installer
