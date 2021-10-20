@@ -290,7 +290,7 @@ system_nginx_conf() {
 
 sudo su - root << EOF
 
-cat > /etc/nginx/conf.d/whaticket << 'END'
+cat > /etc/nginx/conf.d/whaticket.conf << 'END'
 user  deploy;
 worker_processes  auto;
 
@@ -321,9 +321,6 @@ http {
     #gzip  on;
 
     client_max_body_size 20M;
-
-    include /etc/nginx/conf.d/*.conf;
-    include /etc/nginx/sites-enabled/*;
 }
 END
 
