@@ -308,14 +308,15 @@ EOF
 #   None
 #######################################
 system_certbot_setup() {
+
+  local frontend_domain="$1"
+  local backend_domain="$2"
+
   print_banner
   printf "${WHITE} 💻 Configurando certbot...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
-
-  backend_domain=$(echo "${backend_url/https:\/\/}")
-  frontend_domain=$(echo "${frontend_url/https:\/\/}")
 
   sudo su - root <<EOF
   certbot -m $deploy_email \

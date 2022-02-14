@@ -72,6 +72,6 @@ port=3333
 frontend_nginx_setup "$port" "${FOO[0]}"
 
 # network related
-# system_nginx_conf
-# system_nginx_restart
-# system_certbot_setup
+system_nginx_conf
+system_nginx_restart
+system_certbot_setup "${FOO[0]}" "${BAR[0]}"
