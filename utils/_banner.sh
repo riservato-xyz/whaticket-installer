@@ -17,7 +17,7 @@
 #######################################
 print_banner() {
 
-  clear
+  # clear
 
   printf "\n\n"
 
