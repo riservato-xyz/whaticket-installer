@@ -57,8 +57,8 @@ backend_set_env "$port" "${FOO[0]}" "${BAR[0]}"
 backend_mysql_create "db_name" "db_user" "db_pass"
 backend_node_dependencies "${FOO[0]}"
 backend_node_build "${FOO[0]}"
-backend_db_migrate
-# backend_db_seed
+backend_db_migrate "${FOO[0]}"
+backend_db_seed "${FOO[0]}"
 # backend_start_pm2
 # backend_nginx_setup
 

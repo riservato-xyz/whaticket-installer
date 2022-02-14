@@ -181,6 +181,9 @@ EOF
 #   None
 #######################################
 backend_db_seed() {
+
+  local frontend_url="$1"
+
   print_banner
   printf "${WHITE} 💻 Executando db:seed...${GRAY_LIGHT}"
   printf "\n\n"
@@ -188,7 +191,7 @@ backend_db_seed() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whaticket/backend
+  cd /home/deploy/whaticket/$frontend_url/backend
   npx sequelize db:seed:all
 EOF
 
