@@ -37,20 +37,20 @@ source "${PROJECT_ROOT}"/config
 inquiry_options
 
 # dependencies related
-# system_update
-# system_node_install
-# system_pm2_install
-# system_docker_install
-# system_puppeteer_dependencies
-# system_snapd_install
-# system_nginx_install
-# system_certbot_install
+system_update
+system_node_install
+system_pm2_install
+system_docker_install
+system_puppeteer_dependencies
+system_snapd_install
+system_nginx_install
+system_certbot_install
 
 # system config
-# system_create_user
+system_create_user
 
 # backend related
-# system_git_clone
+system_git_clone "${FOO[0]}"
 # backend_set_env
 # backend_mysql_create
 # backend_node_dependencies

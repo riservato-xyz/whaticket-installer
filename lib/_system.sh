@@ -28,6 +28,9 @@ EOF
 #   None
 #######################################
 system_git_clone() {
+
+  local front_url="$1"
+
   print_banner
   printf "${WHITE} 💻 Fazendo download do código whaticket...${GRAY_LIGHT}"
   printf "\n\n"
@@ -35,7 +38,7 @@ system_git_clone() {
   sleep 2
 
   sudo su - deploy <<EOF
-  git clone https://github.com/canove/whaticket /home/deploy/whaticket/
+  git clone https://github.com/canove/whaticket /home/deploy/whaticket/$front_url
 EOF
 
   sleep 2
