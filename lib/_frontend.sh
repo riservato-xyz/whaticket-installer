@@ -106,6 +106,9 @@ EOF
 #   None
 #######################################
 frontend_start_pm2() {
+
+  local frontend_url="$1"
+
   print_banner
   printf "${WHITE} 💻 Iniciando pm2 (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
@@ -113,8 +116,8 @@ frontend_start_pm2() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whaticket/frontend
-  pm2 start server.js --name whaticket-frontend
+  cd /home/deploy/whaticket/$frontend_url/frontend
+  pm2 start server.js --name $frontend_url
   pm2 save
 EOF
 
