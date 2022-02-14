@@ -65,7 +65,7 @@ backend_nginx_setup "$port" "${BAR[0]}"
 # frontend related
 frontend_set_env "${FOO[0]}" "${BAR[0]}"
 frontend_node_dependencies "${FOO[0]}"
-# frontend_node_build
+frontend_node_build "${FOO[0]}"
 # frontend_start_pm2
 # frontend_nginx_setup
 

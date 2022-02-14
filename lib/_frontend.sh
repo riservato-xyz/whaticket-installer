@@ -31,6 +31,9 @@ EOF
 #   None
 #######################################
 frontend_node_build() {
+
+  local frontend_url="$1"
+
   print_banner
   printf "${WHITE} 💻 Compilando o código do frontend...${GRAY_LIGHT}"
   printf "\n\n"
@@ -38,7 +41,7 @@ frontend_node_build() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whaticket/frontend
+  cd /home/deploy/whaticket/$frontend_url/frontend
   npm install
   npm run build
 EOF
