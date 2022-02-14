@@ -165,3 +165,38 @@ EOF
 
   sleep 2
 }
+
+#######################################
+# compiles frontend server file
+# Arguments:
+#   None
+#######################################
+frontend_make_server_file() {
+
+  local frontend_port="$1"
+  local frontend_url="$2"
+
+  print_banner
+  printf "${WHITE} 💻 Compilando server file (frontend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+sudo su - deploy << EOF
+
+cat > /home/deploy/whaticket/$frontend_url/frontend/server.js << 'END'
+//simple express server to run frontend production build;
+const express = require("express");
+const path = require("path");
+const app = express();
+app.use(express.static(path.join(__dirname, "build")));
+app.get("/*", function (req, res) {
+	res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+app.listen($frontend_port);
+END
+
+EOF
+
+  sleep 2
+}

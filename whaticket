@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # reset shell colors
@@ -47,19 +46,19 @@ system_snapd_install
 system_nginx_install
 system_certbot_install
 
-# # system config
+# system config
 system_create_user
 
 for i in "${!FRONTEND_URLS[@]}"; do
 
-  local frontend_url="${FRONTEND_URLS[i]}"
-  local frontend_port="${FRONTEND_PORTS[i]}"
+  frontend_url="${FRONTEND_URLS[i]}"
+  frontend_port="${FRONTEND_PORTS[i]}"
 
-  local backend_url="${BACKEND_URLS[i]}"
-  local backend_port="${BACKEND_PORTS[i]}"
+  backend_url="${BACKEND_URLS[i]}"
+  backend_port="${BACKEND_PORTS[i]}"
   
-  local db_name="${DB_NAMES[i]}"
-  local db_pass="${DB_PASSWORDS[i]}"
+  db_name="${DB_NAMES[i]}"
+  db_pass="${DB_PASSWORDS[i]}"
 
   # backend related
   system_git_clone "${frontend_url}"
@@ -72,14 +71,15 @@ for i in "${!FRONTEND_URLS[@]}"; do
   backend_start_pm2 "${frontend_url}"
   backend_nginx_setup "${backend_port}" "${backend_url}"
 
-  # frontend related
+  # # frontend related
   frontend_set_env "${frontend_url}" "${backend_url}"
+  frontend_make_server_file "${frontend_port}" "${frontend_url}"
   frontend_node_dependencies "${frontend_url}"
   frontend_node_build "${frontend_url}"
   frontend_start_pm2 "${frontend_url}"
   frontend_nginx_setup "${frontend_port}" "${frontend_url}"
 
-  # network related
+  # # network related
   system_nginx_conf
   system_nginx_restart
   system_certbot_setup "${frontend_url}" "${backend_url}"
