@@ -6,11 +6,16 @@ BACKEND_URLS=()
 FRONTEND_PORTS=()
 BACKEND_PORTS=()
 
+DB_NAMES=()
+DB_PASSWORDS=()
+
 get_frontend_url() {
 
-  local frontend_port=3333;
+  local frontend_port=3333
+  local db_password=$(openssl rand -base64 32)
   
   ((frontend_port+=${#FRONTEND_PORTS[@]}))
+
   
   print_banner
   printf "${WHITE} 💻 Digite o domínio da interface web:${GRAY_LIGHT}"
@@ -22,11 +27,14 @@ get_frontend_url() {
 
   FRONTEND_URLS+=($frontend_url)
   FRONTEND_PORTS+=($frontend_port)
+
+  DB_NAMES+=($frontend_url)
+  DB_PASSWORDS+=($db_password)
 }
 
 get_backend_url() {
 
-  local backend_port=8080;
+  local backend_port=8080
   
   ((backend_port+=${#BACKEND_PORTS[@]}))
   

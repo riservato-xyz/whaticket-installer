@@ -10,8 +10,7 @@
 backend_mysql_create() {
 
   local db_name="$1"
-  local db_user="$2"
-  local db_pass="$3"
+  local db_pass="$2"
 
   print_banner
   printf "${WHITE} 💻 Criando banco de dados...${GRAY_LIGHT}"

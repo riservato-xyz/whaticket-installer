@@ -52,7 +52,7 @@ system_create_user
 # backend related
 system_git_clone "${FRONTEND_URLS[0]}"
 backend_set_env "${BACKEND_PORTS[0]}" "${FRONTEND_URLS[0]}" "${BACKEND_URLS[0]}"
-backend_mysql_create "db_name" "db_user" "db_pass"
+backend_mysql_create "${DB_NAMES[0]}" "${DB_PASSWORDS[0]}"
 backend_node_dependencies "${FRONTEND_URLS[0]}"
 backend_node_build "${FRONTEND_URLS[0]}"
 backend_db_migrate "${FRONTEND_URLS[0]}"
