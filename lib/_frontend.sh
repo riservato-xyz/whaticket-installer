@@ -75,20 +75,19 @@ EOF
 #   None
 #######################################
 frontend_set_env() {
+
+  local frontend_url="$1"
+  local backend_url="$2"
+
   print_banner
   printf "${WHITE} 💻 Configurando variáveis de ambiente (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
-  # ensure idempotency
-  backend_url=$(echo "${backend_url/https:\/\/}")
-  backend_url=${backend_url%%/*}
-  backend_url=https://$backend_url
-
 sudo su - deploy << EOF
-  cat <<[-]EOF > /home/deploy/whaticket/frontend/.env
-REACT_APP_BACKEND_URL=${backend_url}
+  cat <<[-]EOF > /home/deploy/whaticket/$frontend_url/frontend/.env
+REACT_APP_BACKEND_URL=https://${backend_url}
 [-]EOF
 EOF
 
