@@ -51,25 +51,21 @@ system_create_user
 
 # backend related
 system_git_clone "${FRONTEND_URLS[0]}"
-backend_port=8080
-((backend_port+=1))
-backend_set_env "$backend_port" "${FRONTEND_URLS[0]}" "${BACKEND_URLS[0]}"
+backend_set_env "${BACKEND_PORTS[0]}" "${FRONTEND_URLS[0]}" "${BACKEND_URLS[0]}"
 backend_mysql_create "db_name" "db_user" "db_pass"
 backend_node_dependencies "${FRONTEND_URLS[0]}"
 backend_node_build "${FRONTEND_URLS[0]}"
 backend_db_migrate "${FRONTEND_URLS[0]}"
 backend_db_seed "${FRONTEND_URLS[0]}"
 backend_start_pm2 "${FRONTEND_URLS[0]}"
-backend_nginx_setup "$backend_port" "${BACKEND_URLS[0]}"
+backend_nginx_setup "${BACKEND_PORTS[0]}" "${BACKEND_URLS[0]}"
 
 # frontend related
 frontend_set_env "${FRONTEND_URLS[0]}" "${BACKEND_URLS[0]}"
 frontend_node_dependencies "${FRONTEND_URLS[0]}"
 frontend_node_build "${FRONTEND_URLS[0]}"
 frontend_start_pm2 "${FRONTEND_URLS[0]}"
-port=3333
-((port+=1))
-frontend_nginx_setup "$port" "${FRONTEND_URLS[0]}"
+frontend_nginx_setup "${FRONTEND_PORTS[0]}" "${FRONTEND_URLS[0]}"
 
 # network related
 system_nginx_conf
