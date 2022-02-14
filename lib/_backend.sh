@@ -43,8 +43,10 @@ EOF
 backend_set_env() {
 
   local port="$1"
-  local frontend_url="$2"
-  local backend_url="$3"
+  local db_name="$2"
+  local db_pass="$3"
+  local frontend_url="$4"
+  local backend_url="$5"
 
   print_banner
   printf "${WHITE} 💻 Configurando variáveis de ambiente (backend)...${GRAY_LIGHT}"
@@ -67,7 +69,7 @@ DB_HOST=localhost
 DB_DIALECT=
 DB_USER=${db_user}
 DB_PASS=${db_pass}
-DB_NAME=${db_name}-${frontend_url}
+DB_NAME=${db_name}
 
 JWT_SECRET=${jwt_secret}
 JWT_REFRESH_SECRET=${jwt_refresh_secret}
