@@ -54,8 +54,8 @@ system_git_clone "${FOO[0]}"
 port=8080
 ((port+=1))
 backend_set_env "$port" "${FOO[0]}" "${BAR[0]}"
-backend_mysql_create
-# backend_node_dependencies
+backend_mysql_create "db_name" "db_user" "db_pass"
+backend_node_dependencies "${FOO[0]}"
 # backend_node_build
 # backend_db_migrate
 # backend_db_seed
