@@ -9,8 +9,9 @@
 #######################################
 backend_mysql_create() {
 
-  local db_name="$1"
-  local db_pass="$2"
+  local db_port="$1"
+  local db_name="$2"
+  local db_pass="$3"
 
   print_banner
   printf "${WHITE} 💻 Criando banco de dados...${GRAY_LIGHT}"
@@ -20,13 +21,13 @@ backend_mysql_create() {
 
   sudo su - root <<EOF
   usermod -aG docker deploy
-  docker run --name whaticketdb \
+  docker run --name ${db_name} \
                 -e MYSQL_ROOT_PASSWORD=${mysql_root_password} \
                 -e MYSQL_DATABASE=${db_name} \
                 -e MYSQL_USER=${db_user} \
                 -e MYSQL_PASSWORD=${db_pass} \
              --restart always \
-                -p 3306:3306 \
+                -p ${db_port}:3306 \
                 -d mariadb:latest \
              --character-set-server=utf8mb4 \
              --collation-server=utf8mb4_bin
@@ -208,6 +209,7 @@ EOF
 backend_start_pm2() {
 
   local frontend_url="$1"
+  local backend_url="$2"
 
   print_banner
   printf "${WHITE} 💻 Iniciando pm2 (backend)...${GRAY_LIGHT}"
@@ -217,7 +219,7 @@ backend_start_pm2() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whaticket/$frontend_url/backend
-  pm2 start dist/server.js --name $frontend_url
+  pm2 start dist/server.js --name $backend_url
 EOF
 
   sleep 2
@@ -260,6 +262,47 @@ server {
 END
 
 ln -s /etc/nginx/sites-available/$backend_hostname /etc/nginx/sites-enabled
+EOF
+
+  sleep 2
+}
+
+#######################################
+# compiles sequelize config file
+# Arguments:
+#   None
+#######################################
+backend_make_sequelize_config_file() {
+
+  local db_port="$1"
+
+  print_banner
+  printf "${WHITE} 💻 Compilando sequelize config file (backend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+sudo su - deploy << EOF
+
+cat > /home/deploy/whaticket/$frontend_url/backend/src/config/database.ts << 'END'
+require("../bootstrap");
+
+module.exports = {
+  define: {
+    charset: "utf8mb4",
+    collate: "utf8mb4_bin"
+  },
+  dialect: process.env.DB_DIALECT || "mysql",
+  timezone: "-03:00",
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  port: ${db_port},
+  logging: false
+};
+END
+
 EOF
 
   sleep 2

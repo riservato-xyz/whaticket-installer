@@ -46,7 +46,7 @@ system_snapd_install
 system_nginx_install
 system_certbot_install
 
-# system config
+# # system config
 system_create_user
 
 for i in "${!FRONTEND_URLS[@]}"; do
@@ -56,6 +56,7 @@ for i in "${!FRONTEND_URLS[@]}"; do
 
   backend_url="${BACKEND_URLS[i]}"
   backend_port="${BACKEND_PORTS[i]}"
+  db_port="${DB_PORTS[i]}"
   
   db_name="${DB_NAMES[i]}"
   db_pass="${DB_PASSWORDS[i]}"
@@ -63,12 +64,13 @@ for i in "${!FRONTEND_URLS[@]}"; do
   # backend related
   system_git_clone "${frontend_url}"
   backend_set_env "${backend_port}" "${db_name}" "${db_pass}" "${frontend_url}" "${backend_url}"
-  backend_mysql_create "${db_name}" "${db_pass}"
+  backend_make_sequelize_config_file "${db_port}"
+  backend_mysql_create "${db_port}" "${db_name}" "${db_pass}"
   backend_node_dependencies "${frontend_url}"
   backend_node_build "${frontend_url}"
   backend_db_migrate "${frontend_url}"
   backend_db_seed "${frontend_url}"
-  backend_start_pm2 "${frontend_url}"
+  backend_start_pm2 "${frontend_url}" "${backend_url}"
   backend_nginx_setup "${backend_port}" "${backend_url}"
 
   # # frontend related

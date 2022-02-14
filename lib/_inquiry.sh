@@ -5,6 +5,7 @@ BACKEND_URLS=()
 
 FRONTEND_PORTS=()
 BACKEND_PORTS=()
+DB_PORTS=()
 
 DB_NAMES=()
 DB_PASSWORDS=()
@@ -35,8 +36,10 @@ get_frontend_url() {
 get_backend_url() {
 
   local backend_port=8080
+  local db_port=3306
   
   ((backend_port+=${#BACKEND_PORTS[@]}))
+  ((db_port+=${#DB_PORTS[@]}))
   
   print_banner
   printf "${WHITE} 💻 Digite o domínio da sua API:${GRAY_LIGHT}"
@@ -48,6 +51,7 @@ get_backend_url() {
 
   BACKEND_URLS+=($backend_url)
   BACKEND_PORTS+=($backend_port)
+  DB_PORTS+=($db_port)
 }
 
 get_urls() {
