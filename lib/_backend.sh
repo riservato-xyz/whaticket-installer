@@ -158,6 +158,9 @@ EOF
 #   None
 #######################################
 backend_db_migrate() {
+
+  local frontend_url="$1"
+
   print_banner
   printf "${WHITE} 💻 Executando db:migrate...${GRAY_LIGHT}"
   printf "\n\n"
@@ -165,7 +168,7 @@ backend_db_migrate() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whaticket/backend
+  cd /home/deploy/whaticket/$frontend_url/backend
   npx sequelize db:migrate
 EOF
 
