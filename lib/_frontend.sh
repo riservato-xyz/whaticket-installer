@@ -130,22 +130,24 @@ EOF
 #   None
 #######################################
 frontend_nginx_setup() {
+
+  local port="$1"
+  local frontend_hostname="$2"
+
   print_banner
   printf "${WHITE} 💻 Configurando nginx (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
-  frontend_hostname=$(echo "${frontend_url/https:\/\/}")
-
 sudo su - root << EOF
 
-cat > /etc/nginx/sites-available/whaticket-frontend << 'END'
+cat > /etc/nginx/sites-available/$frontend_hostname << 'END'
 server {
   server_name $frontend_hostname;
 
   location / {
-    proxy_pass http://127.0.0.1:3333;
+    proxy_pass http://127.0.0.1:$port;
     proxy_http_version 1.1;
     proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection 'upgrade';
@@ -158,7 +160,7 @@ server {
 }
 END
 
-ln -s /etc/nginx/sites-available/whaticket-frontend /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/$frontend_hostname /etc/nginx/sites-enabled
 EOF
 
   sleep 2

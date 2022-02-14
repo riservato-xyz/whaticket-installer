@@ -51,23 +51,25 @@ system_create_user
 
 # backend related
 system_git_clone "${FOO[0]}"
-port=8080
-((port+=1))
-backend_set_env "$port" "${FOO[0]}" "${BAR[0]}"
+backend_port=8080
+((backend_port+=1))
+backend_set_env "$backend_port" "${FOO[0]}" "${BAR[0]}"
 backend_mysql_create "db_name" "db_user" "db_pass"
 backend_node_dependencies "${FOO[0]}"
 backend_node_build "${FOO[0]}"
 backend_db_migrate "${FOO[0]}"
 backend_db_seed "${FOO[0]}"
 backend_start_pm2 "${FOO[0]}"
-backend_nginx_setup "$port" "${BAR[0]}"
+backend_nginx_setup "$backend_port" "${BAR[0]}"
 
 # frontend related
 frontend_set_env "${FOO[0]}" "${BAR[0]}"
 frontend_node_dependencies "${FOO[0]}"
 frontend_node_build "${FOO[0]}"
 frontend_start_pm2 "${FOO[0]}"
-# frontend_nginx_setup
+port=3333
+((port+=1))
+frontend_nginx_setup "$port" "${FOO[0]}"
 
 # network related
 # system_nginx_conf
