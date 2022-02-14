@@ -1,7 +1,7 @@
 #!/bin/bash
 
-FOO=()
-BAR=()
+FRONTEND_URLS=()
+BACKEND_URLS=()
 
 get_frontend_url() {
   
@@ -12,7 +12,7 @@ get_frontend_url() {
 
   frontend_url=$(echo "${frontend_url/https:\/\/}")
   frontend_url=${frontend_url%%/*}
-  FOO+=($frontend_url)
+  FRONTEND_URLS+=($frontend_url)
 }
 
 get_backend_url() {
@@ -24,7 +24,7 @@ get_backend_url() {
 
   backend_url=$(echo "${backend_url/https:\/\/}")
   backend_url=${backend_url%%/*}
-  BAR+=($backend_url)
+  BACKEND_URLS+=($backend_url)
 }
 
 get_urls() {
@@ -46,9 +46,9 @@ inquiry_options() {
   printf "\n\n"
 
   # prints added instances
-  if [ ! ${#FOO[@]} -eq 0 ]; then
-    for index in "${!FOO[@]}"; do
-      printf " + ${FOO[index]} → ${BAR[index]} \n"
+  if [ ! ${#FRONTEND_URLS[@]} -eq 0 ]; then
+    for index in "${!FRONTEND_URLS[@]}"; do
+      printf " + ${FRONTEND_URLS[index]} → ${BACKEND_URLS[index]} \n"
     done
     printf "\n"
     printf "   [1] Adicionar Instância\n"
