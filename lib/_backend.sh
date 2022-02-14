@@ -37,35 +37,33 @@ EOF
 #   None
 #######################################
 backend_set_env() {
+
+  local port="$1"
+  local frontend_url="$2"
+  local backend_url="$3"
+
   print_banner
   printf "${WHITE} 💻 Configurando variáveis de ambiente (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
-  # ensure idempotency
-  backend_url=$(echo "${backend_url/https:\/\/}")
-  backend_url=${backend_url%%/*}
-  backend_url=https://$backend_url
-
-  # ensure idempotency
-  frontend_url=$(echo "${frontend_url/https:\/\/}")
-  frontend_url=${frontend_url%%/*}
-  frontend_url=https://$frontend_url
+  jwt_secret=$(openssl rand -base64 32)
+  jwt_refresh_secret=$(openssl rand -base64 32)
 
 sudo su - deploy << EOF
-  cat <<[-]EOF > /home/deploy/whaticket/backend/.env
+  cat <<[-]EOF > /home/deploy/whaticket/$frontend_url/backend/.env
 NODE_ENV=
-BACKEND_URL=${backend_url}
-FRONTEND_URL=${frontend_url}
+BACKEND_URL=https://${backend_url}
+FRONTEND_URL=https://${frontend_url}
 PROXY_PORT=443
-PORT=8080
+PORT=${port}
 
 DB_HOST=localhost
 DB_DIALECT=
 DB_USER=${db_user}
 DB_PASS=${db_pass}
-DB_NAME=${db_name}
+DB_NAME=${db_name}-${frontend_url}
 
 JWT_SECRET=${jwt_secret}
 JWT_REFRESH_SECRET=${jwt_refresh_secret}

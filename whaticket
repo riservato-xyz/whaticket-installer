@@ -51,7 +51,9 @@ system_create_user
 
 # backend related
 system_git_clone "${FOO[0]}"
-# backend_set_env
+port=8080
+((port+=1))
+backend_set_env "$port" "${FOO[0]}" "${BAR[0]}"
 # backend_mysql_create
 # backend_node_dependencies
 # backend_node_build
