@@ -8,6 +8,9 @@
 #   None
 #######################################
 frontend_node_dependencies() {
+
+  local frontend_url="$1"
+
   print_banner
   printf "${WHITE} 💻 Instalando dependências do frontend...${GRAY_LIGHT}"
   printf "\n\n"
@@ -15,7 +18,7 @@ frontend_node_dependencies() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whaticket/frontend
+  cd /home/deploy/whaticket/$frontend_url/frontend
   npm install
 EOF
 
