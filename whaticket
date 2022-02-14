@@ -59,7 +59,7 @@ backend_node_dependencies "${FOO[0]}"
 backend_node_build "${FOO[0]}"
 backend_db_migrate "${FOO[0]}"
 backend_db_seed "${FOO[0]}"
-# backend_start_pm2
+backend_start_pm2 "${FOO[0]}"
 # backend_nginx_setup
 
 # frontend related
