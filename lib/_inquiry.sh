@@ -9,6 +9,9 @@ get_frontend_url() {
   printf "${WHITE} 💻 Digite o domínio da interface web:${GRAY_LIGHT}"
   printf "\n\n"
   read -p "> " frontend_url
+
+  frontend_url=$(echo "${frontend_url/https:\/\/}")
+  frontend_url=${frontend_url%%/*}
   FOO+=($frontend_url)
 }
 
@@ -18,6 +21,9 @@ get_backend_url() {
   printf "${WHITE} 💻 Digite o domínio da sua API:${GRAY_LIGHT}"
   printf "\n\n"
   read -p "> " backend_url
+
+  backend_url=$(echo "${backend_url/https:\/\/}")
+  backend_url=${backend_url%%/*}
   BAR+=($backend_url)
 }
 
