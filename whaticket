@@ -60,7 +60,7 @@ backend_node_build "${FOO[0]}"
 backend_db_migrate "${FOO[0]}"
 backend_db_seed "${FOO[0]}"
 backend_start_pm2 "${FOO[0]}"
-# backend_nginx_setup
+backend_nginx_setup "$port" "${BAR[0]}"
 
 # frontend related
 # frontend_set_env

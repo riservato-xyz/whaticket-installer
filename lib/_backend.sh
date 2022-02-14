@@ -228,22 +228,24 @@ EOF
 #   None
 #######################################
 backend_nginx_setup() {
+
+  local port="$1"
+  local backend_hostname="$2"
+
   print_banner
   printf "${WHITE} 💻 Configurando nginx (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
-  backend_hostname=$(echo "${backend_url/https:\/\/}")
-
 sudo su - root << EOF
 
-cat > /etc/nginx/sites-available/whaticket-backend << 'END'
+cat > /etc/nginx/sites-available/$backend_hostname << 'END'
 server {
   server_name $backend_hostname;
 
   location / {
-    proxy_pass http://127.0.0.1:8080;
+    proxy_pass http://127.0.0.1:$port;
     proxy_http_version 1.1;
     proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection 'upgrade';
@@ -256,7 +258,7 @@ server {
 }
 END
 
-ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/$backend_hostname /etc/nginx/sites-enabled
 EOF
 
   sleep 2
