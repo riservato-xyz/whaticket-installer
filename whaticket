@@ -51,13 +51,18 @@ system_create_user
 
 for i in "${!FRONTEND_URLS[@]}"; do
 
+  available_port=0
+
   frontend_url="${FRONTEND_URLS[i]}"
-  frontend_port="${FRONTEND_PORTS[i]}"
+  available_ports_from 3333
+  frontend_port=$available_port
 
   backend_url="${BACKEND_URLS[i]}"
-  backend_port="${BACKEND_PORTS[i]}"
-  db_port="${DB_PORTS[i]}"
-  
+  available_ports_from 8080
+  backend_port=$available_port
+
+  available_ports_from 3306
+  db_port=$available_port
   db_name="${DB_NAMES[i]}"
   db_pass="${DB_PASSWORDS[i]}"
 

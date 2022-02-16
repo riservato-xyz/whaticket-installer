@@ -3,20 +3,24 @@
 FRONTEND_URLS=()
 BACKEND_URLS=()
 
-FRONTEND_PORTS=()
-BACKEND_PORTS=()
-DB_PORTS=()
-
 DB_NAMES=()
 DB_PASSWORDS=()
 
+available_port=0
+
+available_ports_from() {
+
+	testing_port=$1
+
+	if [ exec 6<>/dev/tcp/127.0.0.1/$testing_port ]; then
+		available_ports_from `expr $testing_port + 1`
+	fi
+
+  available_port=$testing_port
+}
+
 get_frontend_url() {
-
-  local frontend_port=3333
   local db_password=$(openssl rand -base64 32)
-  
-  ((frontend_port+=${#FRONTEND_PORTS[@]}))
-
   
   print_banner
   printf "${WHITE} 💻 Digite o domínio da interface web:${GRAY_LIGHT}"
@@ -27,19 +31,12 @@ get_frontend_url() {
   frontend_url=${frontend_url%%/*}
 
   FRONTEND_URLS+=($frontend_url)
-  FRONTEND_PORTS+=($frontend_port)
 
   DB_NAMES+=($frontend_url)
   DB_PASSWORDS+=($db_password)
 }
 
 get_backend_url() {
-
-  local backend_port=8080
-  local db_port=3306
-  
-  ((backend_port+=${#BACKEND_PORTS[@]}))
-  ((db_port+=${#DB_PORTS[@]}))
   
   print_banner
   printf "${WHITE} 💻 Digite o domínio da sua API:${GRAY_LIGHT}"
@@ -50,8 +47,6 @@ get_backend_url() {
   backend_url=${backend_url%%/*}
 
   BACKEND_URLS+=($backend_url)
-  BACKEND_PORTS+=($backend_port)
-  DB_PORTS+=($db_port)
 }
 
 get_urls() {
