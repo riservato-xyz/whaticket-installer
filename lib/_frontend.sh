@@ -200,3 +200,39 @@ EOF
 
   sleep 2
 }
+
+copy_old_frontend_builds() {
+
+  local frontend_url=$1
+
+  local root_wpp_dir="/home/deploy/whaticket"
+
+  local oldest_folder=$( get_oldest_folder "$root_wpp_dir" ) 
+  local oldest_frontend_build="$oldest_folder/frontend/build/"
+  local oldest_frontend_modules="$oldest_folder/frontend/node_modules/"
+
+  local current_frontend_build="$root_wpp_dir/$frontend_url/frontend/build"
+  local current_frontend_modules="$root_wpp_dir/$frontend_url/frontend/node_modules/"
+
+  if [ ! "$oldest_folder" == false ]; then
+    if [[ -e "${oldest_frontend_build}" ]]; then
+
+      print_banner
+      printf "${WHITE} 💻 Copiando build de outra instância (frontend)...${GRAY_LIGHT}"
+      printf "\n\n"
+
+      sleep 2
+
+  sudo su - deploy <<EOF
+  rsync -zav --progress $oldest_frontend_modules $current_frontend_modules
+  rsync -zav --progress $oldest_frontend_build $current_frontend_build
+EOF
+
+    fi
+  else
+    frontend_node_dependencies "${frontend_url}"
+    frontend_node_build "${frontend_url}"
+  fi
+
+  sleep 2
+}

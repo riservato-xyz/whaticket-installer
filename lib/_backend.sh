@@ -307,3 +307,79 @@ EOF
 
   sleep 2
 }
+
+backend_make_db_file() {
+
+  local db_port="$1"
+  local frontend_url="$2"
+
+  print_banner
+  printf "${WHITE} 💻 Compilando database.js file (backend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+sudo su - deploy << EOF
+
+cat > /home/deploy/whaticket/$frontend_url/backend/dist/config/database.js << 'END'
+"use strict";
+require("../bootstrap");
+module.exports = {
+    define: {
+        charset: "utf8mb4",
+        collate: "utf8mb4_bin"
+    },
+    dialect: process.env.DB_DIALECT || "mysql",
+    timezone: "-03:00",
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    port: $db_port,
+    logging: false
+};
+END
+
+EOF
+
+  sleep 2
+}
+
+copy_old_backend_builds() {
+
+  local frontend_url=$1
+
+  local root_wpp_dir="/home/deploy/whaticket"
+
+  local oldest_folder=$( get_oldest_folder "$root_wpp_dir" ) 
+  local oldest_backend_build="$oldest_folder/backend/dist/"
+  local oldest_backend_modules="$oldest_folder/backend/node_modules/"
+
+  echo $oldest_backend_build
+  echo $oldest_backend_modules
+
+  local current_backend_build="$root_wpp_dir/$frontend_url/backend/dist"
+  local current_backend_modules="$root_wpp_dir/$frontend_url/backend/node_modules/"
+
+  if [ ! "$oldest_folder" == false ]; then
+    if [[ -e "${oldest_backend_build}" ]]; then
+
+      print_banner
+      printf "${WHITE} 💻 Copiando build de outra instância (backend)...${GRAY_LIGHT}"
+      printf "\n\n"
+
+      sleep 2
+
+  sudo su - deploy <<EOF
+  rsync -zav --progress $oldest_backend_modules $current_backend_modules
+  rsync -zav --progress $oldest_backend_build $current_backend_build
+EOF
+
+    fi
+  else
+    backend_node_dependencies "${frontend_url}"
+    backend_node_build "${frontend_url}"
+  fi
+
+  sleep 2
+}
