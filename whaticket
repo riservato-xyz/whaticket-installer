@@ -48,6 +48,7 @@ system_certbot_install
 
 # system config
 system_create_user
+system_check_code_base
 
 for i in "${!FRONTEND_URLS[@]}"; do
 
@@ -67,11 +68,10 @@ for i in "${!FRONTEND_URLS[@]}"; do
   db_pass="${DB_PASSWORDS[i]}"
 
   # backend related
-  system_git_clone "${frontend_url}"
+  system_copy_code_base "${frontend_url}"
   backend_set_env "${backend_port}" "${db_name}" "${db_pass}" "${frontend_url}" "${backend_url}"
   backend_make_sequelize_config_file "${db_port}"
   backend_mysql_create "${db_port}" "${db_name}" "${db_pass}"
-  copy_old_backend_builds "${frontend_url}"
   backend_make_db_file "${db_port}" "${frontend_url}"
   backend_db_migrate "${frontend_url}"
   backend_db_seed "${frontend_url}"
@@ -81,7 +81,6 @@ for i in "${!FRONTEND_URLS[@]}"; do
   # frontend related
   frontend_set_env "${frontend_url}" "${backend_url}"
   frontend_make_server_file "${frontend_port}" "${frontend_url}"
-  copy_old_frontend_builds "${frontend_url}"
   frontend_start_pm2 "${frontend_url}"
   frontend_nginx_setup "${frontend_port}" "${frontend_url}"
 

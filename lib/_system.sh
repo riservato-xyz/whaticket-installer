@@ -41,7 +41,124 @@ system_git_clone() {
   git clone https://github.com/canove/whaticket /home/deploy/whaticket/$frontend_url
 EOF
 
+}
+
+#######################################
+# updates git clone
+# Arguments:
+#   None
+#######################################
+system_git_pull() {
+
+  local frontend_url="/home/deploy/whaticket/$1"
+
+  print_banner
+  printf "${WHITE} 💻 Tentando atualizando código do whaticket ($1)...${GRAY_LIGHT}"
+  printf "\n\n"
+
   sleep 2
+
+  if [[ -e "${frontend_url}" ]]; then
+
+  sudo su - deploy <<EOF
+  git pull
+EOF
+
+  else
+    echo "Diretório inexistente!"
+  fi
+
+  sleep 2
+}
+
+#######################################
+# checks git clone status
+# Arguments:
+#   None
+#######################################
+system_git_remote_status() {
+
+  local dir=$1
+  cd $dir
+
+  if [[ -e "${dir}" ]]; then
+    UPSTREAM=${1:-'@{u}'}
+    LOCAL=$(git rev-parse @)
+    REMOTE=$(git rev-parse "$UPSTREAM")
+    BASE=$(git merge-base @ "$UPSTREAM")
+
+    if [ $LOCAL = $REMOTE ]; then
+      echo "Up-to-date"
+    elif [ $LOCAL = $BASE ]; then
+      echo "Need to pull"
+    elif [ $REMOTE = $BASE ]; then
+      echo "Need to push"
+    else
+      echo "Diverged"
+    fi
+  else
+    echo "Invalid directory"
+  fi
+
+}
+
+#######################################
+# copies code base to instance folder
+# Arguments:
+#   None
+#######################################
+system_copy_code_base() {
+
+  local frontend_url=$1
+
+  print_banner
+  printf "${WHITE} 💻 Copiando código base para $frontend_url...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+      
+  sudo su - deploy <<EOF
+  rsync -zav --progress /home/deploy/whaticket/base/ /home/deploy/whaticket/$frontend_url
+EOF
+
+  sleep 2
+}
+
+#######################################
+# checks code base for update or download
+# Arguments:
+#   None
+#######################################
+system_check_code_base() {
+
+  local remote_status=$( system_git_remote_status "/home/deploy/whaticket/base" )
+
+  print_banner
+  printf "${WHITE} 💻 Conferindo a código base...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+  echo $remote_status
+
+  if [ "$remote_status" == "Need to pull" ]; then
+    system_git_pull "base"
+
+    backend_node_dependencies "base"
+    backend_node_build "base"
+
+    frontend_node_dependencies "base"
+    frontend_node_build "base"
+
+  elif [ "$remote_status" == "Invalid directory" ]; then
+    system_git_clone "base"
+
+    backend_node_dependencies "base"
+    backend_node_build "base"
+
+    frontend_node_dependencies "base"
+    frontend_node_build "base"
+  fi
+
 }
 
 #######################################
